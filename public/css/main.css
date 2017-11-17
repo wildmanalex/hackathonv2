@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+
 body {
 
     background-color: #2A2A2A ;
+	font-family: 'Oswald', sans-serif;
+}
+
+button {
+
+	cursor: pointer;
+	outline-color: black;
+}
+
+input {
+
+	outline-color: black;
+	background-color: white;
 }
 
 #map {
@@ -15,9 +31,24 @@ body {
     padding-left: 0;
 }
 
+.modal-header {
+
+	font-variant: small-caps;
+}
+
 .modal-content {
 
     border-radius: 0;
+    text-align: center;
+    background-color: #C5C5C5;
+    border: 3px solid white;
+}
+
+.modal-body {
+
+	background-color: #EBEAE8;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
 }
 
 .pac-container {
@@ -32,4 +63,50 @@ body {
 .modal-header {
 
     margin: auto;
+    
+}
+
+#legend {
+       font-family: Arial, sans-serif;
+       background: #fff;
+       padding: 10px;
+       margin: 10px;
+       border: 3px solid #000;
+       transition: all .2s ease-in-out;
+       font-variant: small-caps;
+       background-color: #EBEBEB;
+       opacity: 0.9;
+       background-image: url();
+}
+
+.form-check-input {
+
+	margin-top: 0;
+}
+
+#newCityButton {
+
+	background-color: black;
+	color: white;
+	padding: .5rem;
+	font-variant: small-caps;
+	border-radius: 5px;
+}
+
+#results {
+
+	list-style: none;
+	text-align: left;
+	background-color: white;
+}
+
+#results b {
+
+	font-variant: small-caps;
+	font-weight: 800;
+}
+
+#results h4 {
+
+	text-decoration: underline;
 }
