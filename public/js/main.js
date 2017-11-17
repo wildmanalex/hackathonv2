@@ -237,15 +237,16 @@
 		
 		event.preventDefault()
 
+
 		$('#results').empty()
 
 		var userinput = $('#locationTextField').val()
 
+		$('#locationTextField').blur()
+
 		$('#results').append(`<h4>Results Summary</h4><i>${userinput}</i>`)
 
-
-
-		console.log(userinput)
+//GET REQUEST TO GOOGLE PLACES
 
 		$.get(`/search?query=${userinput}`, function(googleData, status) {
 
@@ -254,9 +255,9 @@
 			var latitude = googleData.results[0].geometry.location.lat
 			var longitude = googleData.results[0].geometry.location.lng
 
-		//GET REQUESTS TO FACEBOOK
+//GET REQUESTS TO FACEBOOK
 		
-		//RESTAURANTS ===============================================================================================================================
+	//RESTAURANTS ===============================================================================================================================
 
 			$.get(`/restaurants?center=${latitude},${longitude}`, function(restaurantsFacebookData, status) {
 
@@ -307,7 +308,7 @@
 						})
 			})
 
-		//ENTERTAINMENT =============================================================================================================================
+	//ENTERTAINMENT =============================================================================================================================
 
 			$.get(`/entertainment?center=${latitude},${longitude}`, function(entertainmentFacebookData, status) {
 
@@ -360,7 +361,7 @@
 						})
 			})
 
-		//RECREATION ================================================================================================================================
+	//RECREATION ================================================================================================================================
 
 			$.get(`/recreation?center=${latitude},${longitude}`, function(recreationFacebookData, status) {
 
@@ -415,7 +416,7 @@
 						})	
 			})
 
-		//SHOPPING===================================================================================================================================
+	//SHOPPING===================================================================================================================================
 
 			$.get(`/shopping?center=${latitude},${longitude}`, function(shoppingFacebookData, status) {
 
@@ -472,7 +473,6 @@
 					
 		})
 						
-		// $('#results').append(`<li>Most Popular Restaurant: ${}</li>`)
 
 	})
 
