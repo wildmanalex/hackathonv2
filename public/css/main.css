@@ -1,5 +1,35 @@
+body {
+
+    background-color: #2A2A2A ;
+}
+
 #map {
-	width: 90vw;
-	height: 90vw;
-	margin: auto;
+
+    width: 95vw;
+    height: 100vh;
+    border: 2px solid black;
+}
+
+#inputDiv {
+
+    padding-left: 0;
+}
+
+.modal-content {
+
+    border-radius: 0;
+}
+
+.pac-container {
+    z-index: 1051 !important;
+}
+
+.modal-backdrop  {
+
+    opacity: 0.9 !important;
+}
+
+.modal-header {
+
+    margin: auto;
 }

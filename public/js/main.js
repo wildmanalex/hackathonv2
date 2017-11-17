@@ -1,14 +1,23 @@
-// $('#map').hide()
+
+
 $('.modal').modal('show')
 $('.modal').on('shown.bs.modal', function() {
 	$("#locationTextField").focus();
 });
 
-
-
 //Load Map and AutoComplete
 
 var fbLocations = []
+var fbAllLocations = []
+var fbAllLocationsAll = []
+var fbRestaurants = []
+var fbRestaurantsAll = []
+var fbEntertainment = []
+var fbEntertainmentAll = []
+var fbRecreation = []
+var fbRecreationAll = []
+var fbShopping = []
+var fbShoppingAll = []
 var parks = []
 var restaurants = []
 var map;
@@ -187,7 +196,6 @@ function initMap() {
 		});
 
 	map = new google.maps.Map(document.getElementById('map'), {
-		// center: {lat: 40, lng: -105},
 		zoom: 3,
 		mapTypeControlOptions: {
 			mapTypeIds: ['roadmap', 'satellite', 'terrain',
@@ -216,21 +224,14 @@ function initMap() {
 			return;
 		}
 
-		if (place.geometry.viewport) {
-
-			map.fitBounds(place.geometry.viewport)
-		} else {
+		else {
 			map.setCenter(place.geometry.location)
-			// map.setZoom(10)
+			map.setZoom(14)
 		}
 
 	})
 
 }
-
-console.log(fbLocations)
-
-//===================================================================================================================
 
 
 //Submit City Name
@@ -241,8 +242,6 @@ $('#submitLocationForm').on('submit', function(event) {
 
 	$('.modal').modal('hide')
 
-	// $('#map').show()
-
 	var userinput = $('#locationTextField').val()
 
 	console.log(userinput)
@@ -251,83 +250,233 @@ $('#submitLocationForm').on('submit', function(event) {
 
 		googleData = JSON.parse(googleData)
 
-		// console.log(googleData)
-
 		var latitude = googleData.results[0].geometry.location.lat
 		var longitude = googleData.results[0].geometry.location.lng
 
-		//GET REQUEST TO FACEBOOK
+//GET REQUEST TO FACEBOOK
 
-		$.get(`/place?center=${latitude},${longitude}`, function(facebookData, status) {
+	//Restaurants
 
-			facebookData = JSON.parse(facebookData)
+// 		$.get(`/place?center=${latitude},${longitude}`, function(facebookData, status) {
 
-			// console.log(facebookData)
+// 			facebookData = JSON.parse(facebookData)
 
-			// console.log(facebookData.checkins)
+// 			for (var i = 0; i < facebookData.data.length; i++) {
 
-			for (var i = 0; i < facebookData.data.length; i++) {
+// //PUSH AND SORT LOCATIONS ARRAY
+	
+// 				fbLocations.push({
+// 					lat: facebookData.data[i].location.latitude,
+// 					lng: facebookData.data[i].location.longitude
+// 				})
 
-				// console.log(facebookData.data[i].checkins)
+// 				fbAllLocations.push(facebookData.data[i])
 
-				//PUSH AND SORT LOCATIONS ARRAY
+// 			}
 
-				// fbLocations.push(facebookData.data[i])
-				fbLocations.push({
-					lat: facebookData.data[i].location.latitude,
-					lng: facebookData.data[i].location.longitude
-				})
+// 			fbAllLocations.sort(function(a,b){
 
-				fbLocations.sort(function(a, b) {
+// 				return b.checkins - a.checkins
+// 			})
+
+// 			console.log(fbAllLocations)
+
+
+
+// //MARKERS AND CLUSTERS
+
+// 			var locationLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+// 			var locationMarkers = fbLocations.map(function(location, i) {
+// 				// console.log(location)
+// 				try {
+					
+// 					return new google.maps.Marker({
+// 						position: new google.maps.LatLng(location.lat, location.lng),
+// 						label: locationLabels[i % locationLabels.length]
+// 					});
+				
+// 				} catch (err) {
+					
+// 					console.log(err)
+// 				}
+// 			});
+
+// 			var markerCluster = new MarkerClusterer(map, locationMarkers, {
+// 				imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+// 			});
+// 		})
+
+	
+
+		$.get(`/restaurants?center=${latitude},${longitude}`, function(restaurantsFacebookData, status) {
+
+				restaurantsFacebookData = JSON.parse(restaurantsFacebookData)
+
+				for (var i = 0; i < restaurantsFacebookData.data.length; i++) {
+
+	//PUSH AND SORT LOCATIONS ARRAY
+		
+					fbRestaurants.push({
+						lat: restaurantsFacebookData.data[i].location.latitude,
+						lng: restaurantsFacebookData.data[i].location.longitude
+					})
+
+					fbRestaurantsAll.push(restaurantsFacebookData.data[i])
+
+				}
+
+				fbRestaurantsAll.sort(function(a,b){
 
 					return b.checkins - a.checkins
 				})
 
-				//PUSH PARKS ARRAY
+				console.log(fbRestaurantsAll)	
 
-				if (facebookData.data[i].category === 'Park') {
+					var restaurantsLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-					parks.push(facebookData.data[i])
-				}
-
-				//PUSH RESTAURANTS ARRAY
-
-				if (facebookData.data[i].category === 'Restaurant') {
-
-					restaurants.push(facebookData.data[i])
-				}
-
-			}
-			var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-			var markers = fbLocations.map(function(location, i) {
-				console.log(location)
-				try {
-					return new google.maps.Marker({
-						position: new google.maps.LatLng(location.lat, location.lng),
-						label: labels[i % labels.length]
+					var restaurantsMarkers = fbRestaurants.map(function(location, i) {
+							
+							return new google.maps.Marker({
+								position: new google.maps.LatLng(location.lat, location.lng),
+								label: restaurantsLabels[i % restaurantsLabels.length]
+							});
 					});
-				} catch (err) {
-					console.log(err)
+
+					var restaurantsMarkerCluster = new MarkerClusterer(map, restaurantsMarkers, {
+						imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+					});
+		})
+
+		$.get(`/entertainment?center=${latitude},${longitude}`, function(entertainmentFacebookData, status) {
+
+				entertainmentFacebookData = JSON.parse(entertainmentFacebookData)
+
+				for (var i = 0; i < entertainmentFacebookData.data.length; i++) {
+
+	//PUSH AND SORT LOCATIONS ARRAY
+		
+					fbEntertainment.push({
+						lat: entertainmentFacebookData.data[i].location.latitude,
+						lng: entertainmentFacebookData.data[i].location.longitude
+					})
+
+					fbEntertainmentAll.push(entertainmentFacebookData.data[i])
+
 				}
-			});
 
-			// Add a marker clusterer to manage the markers.
-			var markerCluster = new MarkerClusterer(map, markers, {
-				imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-			});
-			console.log(markerCluster)
+				fbEntertainmentAll.sort(function(a,b){
 
-			// console.log(fbLocations)
-			// console.log(parks)
-			// console.log(restaurants)
+					return b.checkins - a.checkins
+				})
 
+				console.log(fbEntertainmentAll)	
+
+				var entertainmentLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+					var entertainmentMarkers = fbEntertainment.map(function(location, i) {
+						// console.log(location)
+						
+							
+							return new google.maps.Marker({
+								position: new google.maps.LatLng(location.lat, location.lng),
+								label: entertainmentLabels[i % entertainmentLabels.length]
+							});
+						
+						
+					});
+
+					var entertainmentMarkerCluster = new MarkerClusterer(map, entertainmentMarkers, {
+						imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+					});
+		})
+
+		$.get(`/recreation?center=${latitude},${longitude}`, function(recreationFacebookData, status) {
+
+				recreationFacebookData = JSON.parse(recreationFacebookData)
+
+				for (var i = 0; i < recreationFacebookData.data.length; i++) {
+
+	//PUSH AND SORT LOCATIONS ARRAY
+		
+					fbRecreation.push({
+						lat: recreationFacebookData.data[i].location.latitude,
+						lng: recreationFacebookData.data[i].location.longitude
+					})
+
+					fbRecreationAll.push(recreationFacebookData.data[i])
+
+				}
+
+				fbRecreationAll.sort(function(a,b){
+
+					return b.checkins - a.checkins
+				})
+
+				console.log(fbRecreationAll)
+
+				var recreationLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+					var recreationMarkers = fbRecreation.map(function(location, i) {
+						// console.log(location)
+						
+							
+							return new google.maps.Marker({
+								position: new google.maps.LatLng(location.lat, location.lng),
+								label: recreationLabels[i % recreationLabels.length]
+							});
+						
+						
+					});
+
+					var recreationMarkerCluster = new MarkerClusterer(map, recreationMarkers, {
+						imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+					});	
+		})
+
+		$.get(`/shopping?center=${latitude},${longitude}`, function(shoppingFacebookData, status) {
+
+				shoppingFacebookData = JSON.parse(shoppingFacebookData)
+
+				for (var i = 0; i < shoppingFacebookData.data.length; i++) {
+
+	//PUSH AND SORT LOCATIONS ARRAY
+		
+					fbShopping.push({
+						lat: shoppingFacebookData.data[i].location.latitude,
+						lng: shoppingFacebookData.data[i].location.longitude
+					})
+
+					fbShoppingAll.push(shoppingFacebookData.data[i])
+
+				}
+
+				fbShoppingAll.sort(function(a,b){
+
+					return b.checkins - a.checkins
+				})
+
+				console.log(fbShoppingAll)
+
+				var shoppingLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+					var shoppingMarkers = fbShopping.map(function(location, i) {
+						// console.log(location)
+						
+							
+							return new google.maps.Marker({
+								position: new google.maps.LatLng(location.lat, location.lng),
+								label: shoppingLabels[i % shoppingLabels.length]
+							});
+						
+						
+					});
+
+					var shoppingMarkerCluster = new MarkerClusterer(map, shoppingMarkers, {
+						imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+					});	
 		})
 
 	})
-
-	console.log(fbLocations)
-
-
 
 })
