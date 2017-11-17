@@ -7,14 +7,14 @@
 	// var fbLocations = []
 	// var fbAllLocations = []
 	// var fbAllLocationsAll = []
-	var fbRestaurants = []
-	var fbRestaurantsAll = []
-	var fbEntertainment = []
-	var fbEntertainmentAll = []
-	var fbRecreation = []
-	var fbRecreationAll = []
-	var fbShopping = []
-	var fbShoppingAll = []
+	// var fbRestaurants = []
+	// var fbRestaurantsAll = []
+	// var fbEntertainment = []
+	// var fbEntertainmentAll = []
+	// var fbRecreation = []
+	// var fbRecreationAll = []
+	// var fbShopping = []
+	// var fbShoppingAll = []
 	var map
 
 
@@ -236,6 +236,15 @@
 	$('#submitLocationForm').on('submit', function(event) {
 		
 		event.preventDefault()
+
+		var fbRestaurants = []
+		var fbRestaurantsAll = []
+		var fbEntertainment = []
+		var fbEntertainmentAll = []
+		var fbRecreation = []
+		var fbRecreationAll = []
+		var fbShopping = []
+		var fbShoppingAll = []
 
 
 		$('#results').empty()
