@@ -24,8 +24,7 @@ app.get('/search', function(req, res){
 
 	console.log(req.query)
 
-
-	var googlePlaceApi = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${req.query.query}&key=AIzaSyA2lVDI6UqkDFzt9zRp_O8KSiDYJBOZ2D8`
+	var googlePlaceApi = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${req.query.query}&key=AIzaSyDlmcnTkY5oOIpWsbxz23N2zld6UYk4QGI`
 
 	request(googlePlaceApi, function(err, response, dataFromServer){
 
@@ -45,7 +44,7 @@ app.get('/search', function(req, res){
 
 app.get('/place', function(req, res){
 
-	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&fields=name,checkins,location&limit=50&access_token=186723258550710|8069d0acffdee876456780730de0e0c7`
+	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&fields=name,checkins,location&limit=50&access_token=186723258550710|6e3f49b536d12f9e19ebc590cc47cbd1`
 
 	request(facebookAPI, function(err, response, restaurantsFromServer){
 
@@ -63,7 +62,7 @@ app.get('/place', function(req, res){
 
 app.get('/restaurants', function(req, res){
 
-	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["FOOD_BEVERAGE"]&fields=name,checkins,location&limit=50&access_token=186723258550710|8069d0acffdee876456780730de0e0c7`
+	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["FOOD_BEVERAGE"]&fields=name,checkins,location&limit=50&access_token=186723258550710|6e3f49b536d12f9e19ebc590cc47cbd1`
 
 	request(facebookAPI, function(err, response, restaurantsFromServer){
 
@@ -81,7 +80,7 @@ app.get('/restaurants', function(req, res){
 
 app.get('/entertainment', function(req, res){
 
-	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["ARTS_ENTERTAINMENT"]&fields=name,checkins,location&limit=50&access_token=186723258550710|8069d0acffdee876456780730de0e0c7`
+	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["ARTS_ENTERTAINMENT"]&fields=name,checkins,location&limit=50&access_token=186723258550710|6e3f49b536d12f9e19ebc590cc47cbd1`
 
 	request(facebookAPI, function(err, response, entertainmentFromServer){
 
@@ -99,7 +98,7 @@ app.get('/entertainment', function(req, res){
 
 app.get('/recreation', function(req, res){
 
-	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["FITNESS_RECREATION"]&fields=name,checkins,location&limit=50&access_token=186723258550710|8069d0acffdee876456780730de0e0c7`
+	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["FITNESS_RECREATION"]&fields=name,checkins,location&limit=50&access_token=186723258550710|6e3f49b536d12f9e19ebc590cc47cbd1`
 
 	request(facebookAPI, function(err, response, recreationFromServer){
 
@@ -117,7 +116,7 @@ app.get('/recreation', function(req, res){
 
 app.get('/shopping', function(req, res){
 
-	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["SHOPPING_RETAIL"]&fields=name,checkins,location&limit=50&access_token=186723258550710|8069d0acffdee876456780730de0e0c7`
+	var facebookAPI = `https://graph.facebook.com/v2.11/search?type=place&center=${req.query.center}&distance=1000&categories=["SHOPPING_RETAIL"]&fields=name,checkins,location&limit=50&access_token=186723258550710|6e3f49b536d12f9e19ebc590cc47cbd1`
 
 	request(facebookAPI, function(err, response, shoppingFromServer){
 

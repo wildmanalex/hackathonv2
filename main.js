@@ -1,4 +1,3 @@
-
 	$('.modal').modal('show')
 	$('.modal').on('shown.bs.modal', function() {
 		$("#locationTextField").focus();
@@ -16,7 +15,6 @@
 	var fbShopping = []
 	var fbShoppingAll = []
 	var map
-
 
 	//INITIALIZE GOOGLE MAP
 	function initMap() {
@@ -234,9 +232,8 @@
 	//SUBMIT CITY NAME
 
 	$('#submitLocationForm').on('submit', function(event) {
-		
-		event.preventDefault()
 
+		event.preventDefault()
 
 		$('#results').empty()
 
@@ -256,7 +253,7 @@
 			var longitude = googleData.results[0].geometry.location.lng
 
 //GET REQUESTS TO FACEBOOK
-		
+
 	//RESTAURANTS ===============================================================================================================================
 
 			$.get(`/restaurants?center=${latitude},${longitude}`, function(restaurantsFacebookData, status) {
@@ -266,7 +263,7 @@
 					for (var i = 0; i < restaurantsFacebookData.data.length; i++) {
 
 						fbRestaurantsAll.push(restaurantsFacebookData.data[i])
-						
+
 						fbRestaurantsAll.sort(function(a,b){
 
 							return b.checkins - a.checkins
@@ -282,7 +279,7 @@
 
 							for(var i = 0; i < fbRestaurantsSliced.length; i++) {
 
-			
+
 								fbRestaurants.push({
 									lat: fbRestaurantsSliced[i].location.latitude,
 									lng: fbRestaurantsSliced[i].location.longitude
@@ -296,7 +293,7 @@
 						var restaurantsLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 						var restaurantsMarkers = fbRestaurants.map(function(location, i) {
-								
+
 								return new google.maps.Marker({
 									position: new google.maps.LatLng(location.lat, location.lng),
 									label: restaurantsLabels[i % restaurantsLabels.length]
@@ -333,7 +330,7 @@
 
 							for(var i = 0; i < fbEntertainmentSliced.length; i++) {
 
-			
+
 								fbEntertainment.push({
 									lat: fbEntertainmentSliced[i].location.latitude,
 									lng: fbEntertainmentSliced[i].location.longitude
@@ -344,16 +341,16 @@
 							// console.log(fbEntertainmentSliced)
 							// console.log(fbEntertainment)
 
-						
+
 						var entertainmentLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 						var entertainmentMarkers = fbEntertainment.map(function(location, i) {
-														
+
 								return new google.maps.Marker({
 									position: new google.maps.LatLng(location.lat, location.lng),
 									label: entertainmentLabels[i % entertainmentLabels.length]
 								})
-								
+
 						})
 
 						var entertainmentMarkerCluster = new MarkerClusterer(map, entertainmentMarkers, {
@@ -368,7 +365,7 @@
 					recreationFacebookData = JSON.parse(recreationFacebookData)
 
 					for (var i = 0; i < recreationFacebookData.data.length; i++) {
-			
+
 
 						fbRecreationAll.push(recreationFacebookData.data[i])
 
@@ -388,7 +385,7 @@
 
 							for(var i = 0; i < fbRecreationSliced.length; i++) {
 
-			
+
 								fbRecreation.push({
 									lat: fbRecreationSliced[i].location.latitude,
 									lng: fbRecreationSliced[i].location.longitude
@@ -396,24 +393,24 @@
 
 							}
 
-							// console.log(fbRecreationSliced)
-							// console.log(fbRecreation)
+						// console.log(fbRecreationSliced)
+						// console.log(fbRecreation)
 
 
 					var recreationLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 						var recreationMarkers = fbRecreation.map(function(location, i) {
-								
+
 								return new google.maps.Marker({
 									position: new google.maps.LatLng(location.lat, location.lng),
 									label: recreationLabels[i % recreationLabels.length]
 								})
-							
+
 						})
 
 						var recreationMarkerCluster = new MarkerClusterer(map, recreationMarkers, {
 							imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-						})	
+						})
 			})
 
 	//SHOPPING===================================================================================================================================
@@ -441,7 +438,7 @@
 
 						for(var i = 0; i < fbShoppingSliced.length; i++) {
 
-		
+
 							fbShopping.push({
 								lat: fbShoppingSliced[i].location.latitude,
 								lng: fbShoppingSliced[i].location.longitude
@@ -456,23 +453,23 @@
 					var shoppingLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 						var shoppingMarkers = fbShopping.map(function(location, i) {
-								
+								console.log('ddsffds')
 								return new google.maps.Marker({
 									position: new google.maps.LatLng(location.lat, location.lng),
 									label: shoppingLabels[i % shoppingLabels.length]
-								})	
-							
+								})
+
 						})
 
 						var shoppingMarkerCluster = new MarkerClusterer(map, shoppingMarkers, {
 							imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
 						})
-			
+
 			})
 
-					
+
 		})
-						
+
 
 	})
 
@@ -484,5 +481,3 @@
 			$("#locationTextField").focus();
 		});
 	})
-
-

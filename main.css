@@ -14,7 +14,6 @@ button {
 }
 
 input {
-
 	outline-color: black;
 	background-color: white;
 }
@@ -63,7 +62,7 @@ input {
 .modal-header {
 
     margin: auto;
-    
+
 }
 
 #legend {
